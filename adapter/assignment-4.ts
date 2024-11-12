@@ -21,7 +21,15 @@ export interface Filter {
 // If multiple filters are provided, any book that matches at least one of them should be returned
 // Within a single filter, a book would need to match all the given conditions
 async function listBooks (filters?: Filter[]): Promise<Book[]> {
-  return await previous_assignment.listBooks(filters)
+  // We then make the request
+  const result = await fetch('http://localhost:3000/books/list', { body: JSON.stringify(filters ?? []), method: 'POST' })
+
+  if (result.ok) {
+    // And if it is valid, we parse the JSON result and return it.
+    return await result.json() as Book[]
+  } else {
+    throw new Error('Failed to fetch books')
+  }
 }
 
 async function createOrUpdateBook (book: Book): Promise<BookID> {
@@ -84,7 +92,7 @@ async function fulfilOrder (order: OrderId, booksFulfilled: Array<{ book: BookID
   const result = await fetch(`http://localhost:3000/fulfil/${order}`, {
     method: 'put',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(booksFulfilled)
+    body: JSON.stringify({ booksFulfilled })
   })
   if (!result.ok) {
     throw new Error(`Couldnt Fulfil ${await result.text()}`)
