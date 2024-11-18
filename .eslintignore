@@ -1,3 +1,4 @@
 .eslintrc.js
 client/
 build/
+*.config.js
