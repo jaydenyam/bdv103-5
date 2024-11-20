@@ -51,4 +51,4 @@ export interface Filter {
   to?: number
   name?: string
   author?: string
-};
+}

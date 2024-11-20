@@ -1,7 +1,6 @@
 module.exports = {
     "env": {
         "es2021": true,
-        "es6": true,
         "node": true
     },
     "extends": "standard-with-typescript",
@@ -14,18 +13,19 @@ module.exports = {
                 ".eslintrc.{js,cjs}"
             ],
             "parserOptions": {
-                "sourceType": "script",
-                "parser": "@typescript-eslint/parser",
-                "project": "./tsconfig.json",
-                "tsconfigRootDir": "__dirname",
+                "sourceType": "script"
             },
         }
     ],
+    "parser": "@typescript-eslint/parser",
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
     "parserOptions": {
         "ecmaVersion": "latest",
         "sourceType": "module"
     },
     "rules": {
-        "keyword-spacing": 2
     }
 }
